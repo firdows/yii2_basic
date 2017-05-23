@@ -6,7 +6,14 @@ class HelloController extends \yii\web\Controller{
 
   #hello/index
   public function actionIndex(){
-    return $this->render('index');
+    $weigth = 75;
+
+    return $this->render('index',[
+      'firstname' => 'อาฮาหมัด',
+      'lastname'=> 'เจ๊ะดือราแม',
+      'weigth' => $weigth
+    ]
+  );
   }
 
   #hello/profile
