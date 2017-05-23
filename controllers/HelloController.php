@@ -7,10 +7,12 @@ class HelloController extends \yii\web\Controller{
   #hello/index
   public function actionIndex(){
     $weigth = 75;
+    $first = 'สุรกิจ';
+    $last = 'ชูเดช';
 
     return $this->render('index',[
-      'firstname' => 'อาฮาหมัด',
-      'lastname'=> 'เจ๊ะดือราแม',
+      'lastname'=> $last,
+      'firstname' => $first,
       'weigth' => $weigth
     ]
   );
@@ -19,6 +21,14 @@ class HelloController extends \yii\web\Controller{
   #hello/profile
   public function actionProfile(){
     return $this->render('profile');
+  }
+
+  public function actionProduct($id,$brand=null,$price){
+    return $this->render('product',[
+      'id'=>$id,
+      'brand'=>$brand,
+      'price' => $price
+    ]);
   }
 
 }
