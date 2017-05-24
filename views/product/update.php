@@ -1,6 +1,21 @@
+<?php
 
+use yii\helpers\Html;
 
+/* @var $this yii\web\View */
+/* @var $model app\models\Product */
 
-<h1>แก้ไขสินค้า</h1>
+$this->title = 'Update Product: ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Update';
+?>
+<div class="product-update">
 
-<?=$this->render('_form',['model'=>$model]);?>
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <?= $this->render('_form', [
+        'model' => $model,
+    ]) ?>
+
+</div>

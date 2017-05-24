@@ -3,26 +3,37 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+use app\models\ProductType;
+use yii\helpers\ArrayHelper;
+
+$productType = ProductType::find()->all();
+$productTypeList = ArrayHelper::map($productType,'id','title');
+
+//print_r($productTypeList);
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Product */
-/* @var $form ActiveForm */
+/* @var $form yii\widgets\ActiveForm */
 ?>
-<div class="product-_form">
 
-    <!-- <form action='' method="post"> -->
+<div class="product-form">
+
     <?php $form = ActiveForm::begin(); ?>
 
-        <!-- <input type="text" name="title" value=""> -->
-        <?= $form->field($model, 'title')->textInput(['placeholder'=>'ชื่อสินค้า']) ?>
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'price')?>
-        <?= $form->field($model, 'type')->dropDownList(['1'=>'Phone','2'=>'Computer'],['prompt'=>'เลือกประเภท']) ?>
-        <?= $form->field($model, 'amount')->textInput(['type'=>'number']) ?>
-        <?= $form->field($model, 'detail')->textArea() ?>
+    <?= $form->field($model, 'detail')->textarea(['rows' => 6]) ?>
 
-        <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
-        </div>
+    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'product_type_id')->dropDownList($productTypeList) ?>
+
+    <?= $form->field($model, 'amount')->textInput() ?>
+
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    </div>
+
     <?php ActiveForm::end(); ?>
 
-</div><!-- product-_form -->
+</div>

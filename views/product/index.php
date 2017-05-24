@@ -1,44 +1,52 @@
 <?php
-use yii\bootstrap\Html;
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+
+use app\models\ProductType;
+use yii\helpers\ArrayHelper;
+
+$productType = ProductType::find()->all();
+$productTypeList = ArrayHelper::map($productType,'id','title');
+
 /* @var $this yii\web\View */
+/* @var $searchModel app\models\ProductSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Products';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<h1>รายการสินค้า</h1>
+<div class="product-index">
 
-<p>
-<?=Html::a('เพิ่มสินค้า',['create'],['class'=>'btn btn-success'])?>
-</p>
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>ไอดี</th>
-      <th>ชื่อสินค้า</th>
-      <th>ประเภท</th>
-      <th>ราคา</th>
-      <th>รายละเอียด</th>
-      <th>จำนวน</th>
-      <th>Action</th>
-    </tr>
-  </thead>
+    <p>
+        <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'layout'=>"{summary}\n{items}\n{pager}",
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
-  <tbody>
-    <?php foreach($model as $data){?>
-    <tr>
-      <td><?=$data->id?></td>
-      <td><?=$data->title?></td>
-      <td><?=$data->type?></td>
-      <td><?=$data->price?></td>
-      <td><?=$data->detail?></td>
-      <td><?=$data->amount?></td>
-      <td>
-        <?=Html::a(Html::icon('pencil'),['update','id'=>$data->id],['class'=>''])?>
-        <?=Html::a(Html::icon('trash'),['delete','id'=>$data->id],['class'=>'','onClick'=>"return confirm('Are you sure?');"])?>
-      </td>
-    </tr>
-    <?php } ?>
+            //'id',
+            'title',
+            //'detail:ntext',
+            'price:decimal',
+            //'product_type_id',
+            [
+                'attribute' => 'product_type_id',
+                'filter' => $productTypeList,
+                'value' => function($model){
+                    return $model->productType->title;
+                }
+            ],
 
-  </tbody>
+            // 'amount',
 
-
-
-</table>
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+</div>
