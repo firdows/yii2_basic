@@ -11,8 +11,10 @@ use Yii;
  * @property string $title
  * @property string $detail
  * @property string $price
- * @property integer $type
+ * @property integer $product_type_id
  * @property integer $amount
+ *
+ * @property ProductType $productType
  */
 class Product extends \yii\db\ActiveRecord
 {
@@ -30,11 +32,12 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'price', 'type', 'amount'], 'required'],
+            [['title', 'price', 'product_type_id', 'amount'], 'required'],
             [['detail'], 'string'],
             [['price'], 'number'],
-            [['type', 'amount'], 'integer'],
+            [['product_type_id', 'amount'], 'integer'],
             [['title'], 'string', 'max' => 100],
+            [['product_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductType::className(), 'targetAttribute' => ['product_type_id' => 'id']],
         ];
     }
 
@@ -48,8 +51,16 @@ class Product extends \yii\db\ActiveRecord
             'title' => 'Title',
             'detail' => 'Detail',
             'price' => 'Price',
-            'type' => 'Type',
+            'product_type_id' => 'Product Type ID',
             'amount' => 'Amount',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductType()
+    {
+        return $this->hasOne(ProductType::className(), ['id' => 'product_type_id']);
     }
 }
