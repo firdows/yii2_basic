@@ -48,6 +48,11 @@ $config = [
         ],
 
     ],
+    'modules' => [
+        'webboard' => [
+            'class' => 'app\modules\webboard\Module',
+        ],
+    ],
     'params' => $params,
 ];
 
