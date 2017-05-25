@@ -29,12 +29,17 @@ class ProductController extends Controller
         ];
     }
 
+    public function actions(){
+      $this->layout = 'product-layout';
+    }
+
     /**
      * Lists all Product models.
      * @return mixed
      */
     public function actionIndex()
     {
+        //$this->layout = 'front-page';
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

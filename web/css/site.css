@@ -1,6 +1,7 @@
 html,
 body {
     height: 100%;
+    /*background: blue;*/
 }
 
 .wrap {
@@ -23,7 +24,7 @@ body {
 
 .jumbotron {
     text-align: center;
-    background-color: transparent;
+    /*background-color: transparent;*/
 }
 
 .jumbotron .btn {

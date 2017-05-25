@@ -25,7 +25,7 @@ AppAsset::register($this);
 
       <?php
       NavBar::begin([
-          'brandLabel' => $this->title,
+          'brandLabel' => 'My Company',
           'brandUrl' => Yii::$app->homeUrl,
           'options' => [
               'class' => 'navbar-inverse navbar-fixed-top',
@@ -63,13 +63,18 @@ AppAsset::register($this);
 
   <div class="container">
 
-    <div class="row">
 
+    <div class="jumbotron" style="background:red;">
+          <h1>สวัสดีน้องๆ</h1>
+          <p>...</p>
+          <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+    </div>
+
+    <div class="row">
       <div class="col-sm-12">
           <?=$content?>
       </div>
     </div>
-
   </div>
 
 </div>

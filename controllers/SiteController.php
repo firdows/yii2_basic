@@ -60,6 +60,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'front-page';
         return $this->render('index');
     }
 
