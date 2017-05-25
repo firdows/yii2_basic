@@ -5,6 +5,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
+
 AppAsset::register($this);
 ?>
 
@@ -50,13 +51,19 @@ AppAsset::register($this);
           ['label' => 'Home', 'url' => ['/site/index']],
           ['label' => 'Hello World', 'url' => ['/hello/index']],
           ['label' => 'Product', 'url' => ['/product']],
+          ['label' => 'Webboard', 'url' => ['/webboard']],
           ['label' => 'About', 'url' => ['/site/about']],
           ['label' => 'Contact', 'url' => ['/site/contact']],
+          [
+            'label' => 'Profile',
+            'url' => ['/user/settings/profile'],
+            'visible' => !Yii::$app->user->isGuest
+          ],
           Yii::$app->user->isGuest ? (
-              ['label' => 'Login', 'url' => ['/site/login']]
+              ['label' => 'Login', 'url' => ['/user/security/login']]
           ) : (
               '<li>'
-              . Html::beginForm(['/site/logout'], 'post')
+              . Html::beginForm(['/user/security/logout'], 'post')
               . Html::submitButton(
                   'Logout (' . Yii::$app->user->identity->username . ')',
                   ['class' => 'btn btn-link logout']
@@ -84,8 +91,10 @@ AppAsset::register($this);
 	<div class="main main-raised">
 		<div class="section">
 	        <div class="container-fluid">
-
-    				        <?=$content?>
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+    				<?=$content?>
 
 
 	       </div>
